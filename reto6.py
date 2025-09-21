@@ -1,9 +1,11 @@
+from datetime import datetime
+
 class Auto:
     def __init__(self, marca, modelo, año):
         self.marca = marca
         self.modelo = modelo
         self.año = año
-        self.kilometraje = 0   # siempre empieza en 0
+        self.kilometraje = 0
 
     def mostrar_informacion(self):
         print(f"Marca: {self.marca}, Modelo: {self.modelo}, Año: {self.año}, Kilometraje: {self.kilometraje} km")
@@ -30,10 +32,23 @@ class Auto:
         else:
             print("¡Ya déjame descansar por favor! 😵")
 
-mi_auto = Auto("Toyota", "Corolla", 2020)
+    # 🔹 MÉTODO DE CLASE → Crear Toyota del año actual
+    @classmethod
+    def toyota_actual(cls, modelo):
+        año_actual = datetime.now().year
+        return cls("Toyota", modelo, año_actual)
 
-mi_auto.mostrar_informacion()
-mi_auto.actualizar_kilometraje(15000)
-mi_auto.realizar_viaje(10000)
-mi_auto.actualizar_kilometraje(5000)
-mi_auto.estado_auto()
+    # 🔹 MÉTODO ESTÁTICO → Validar kilometraje igual
+    @staticmethod
+    def mismo_kilometraje(auto1, auto2):
+        return auto1.kilometraje == auto2.kilometraje
+
+    # 🔹 MÉTODO DE CLASE ADICIONAL → Crear auto clásico
+    @classmethod
+    def auto_clasico(cls, marca, modelo):
+        return cls(marca, modelo, 1980)
+
+    # 🔹 MÉTODO ESTÁTICO ADICIONAL → Verificar si un auto es antiguo
+    @staticmethod
+    def es_antiguo(auto):
+        return auto.año < 1990
